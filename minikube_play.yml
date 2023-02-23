@@ -15,7 +15,7 @@
         - curl
 
     - name: Install kubectl
-      shell: sudo apt install kubectl
+      shell: sh kubectl.sh
 
     - name: Install Minikube
       shell: |
