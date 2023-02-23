@@ -1,0 +1,37 @@
+---
+- name: Install and Create Minikube Cluster
+  hosts: target1
+  become: true
+
+  tasks:
+    - name: Install dependencies
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - docker.io
+        - conntrack
+        - socat
+        - curl
+
+    - name: Install kubectl
+      apt:
+        name: kubectl
+        state: present
+
+    - name: Install Minikube
+      shell: |
+        curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+        sudo install minikube-linux-amd64 /usr/local/bin/minikube
+
+    - name: Start Minikube cluster
+      shell: |
+        minikube start --driver=docker
+
+    - name: Set kubectl context
+      shell: |
+        minikube update-context
+
+    - name: Verify cluster status
+      shell: |
+        kubectl cluster-info
