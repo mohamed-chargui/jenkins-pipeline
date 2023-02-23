@@ -1,0 +1,9 @@
+---
+- name: Install Jenkins
+  hosts: vm_test
+  become: true
+  tasks:
+    - name: create file
+      file: 
+        path: /home/test_file 
+        state: touch
