@@ -1,6 +1,6 @@
 ---
 - name: Install Ansible on Ubuntu target machine
-  hosts: vm_test
+  hosts: target1
   become: true
 
   tasks:
