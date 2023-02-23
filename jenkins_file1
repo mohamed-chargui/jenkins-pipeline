@@ -1,0 +1,25 @@
+pipeline{
+    agent any
+    stages{
+        stage('git repo checkout'){
+            steps{
+                git credentialsId: 'github_token', url: 'https://github.com/mohamed-chargui/jenkins-pipeline.git'
+            }
+        }
+        stage('install jenkins with ansible in vm_test'){
+            steps{
+                ansiblePlaybook credentialsId: 'target1_key', disableHostKeyChecking: true, installation: 'ansible2', inventory: 'jen_inventory', playbook: 'jenkins_playbook.yml'
+            }
+        }
+        stage('install docker on target_host'){
+            steps{
+                ansiblePlaybook credentialsId: 'target1_key', disableHostKeyChecking: true, installation: 'ansible2', inventory: 'jen_inventory', playbook: 'docker_playbook.yml'
+            }
+        }
+        stage('install ansible'){
+            steps{
+                ansiblePlaybook credentialsId: 'target1_key', disableHostKeyChecking: true, installation: 'ansible2', inventory: 'jen_inventory', playbook: 'ans_playbook.yml'
+            }
+        }
+    }
+}
