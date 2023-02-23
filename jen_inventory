@@ -1,1 +1,1 @@
-vm_test ansible_host=192.168.1.44 ansible_user=osboxes ansible_connection=ssh ansible_password=osboxes.org ansible_sudo_pass=osboxes.org
+target1 ansible_host=192.168.1.31 ansible_user=osboxes ansible_connection=ssh ansible_password=osboxes.org ansible_sudo_pass=osboxes.org
