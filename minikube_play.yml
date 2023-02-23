@@ -15,8 +15,18 @@
         - curl
     - name: Update the apt package index and install packages needed to use the Kubernetes apt repository
       shell: sudo apt-get update | sudo apt-get install -y ca-certificates curl
-    - name: Download the Google Cloud public signing key
-      shell: sudo curl -fsSLo /etc/apt/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    - name: Download Kubernetes archive keyring using curl
+      curl:
+        url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+        dest: /etc/apt/keyrings/kubernetes-archive-keyring.gpg
+        owner: root
+        group: root
+        mode: '0644'
+        use_proxy: no
+        validate_certs: yes
+        remote_src: yes
+      become: yes
+
     - name: Add the Kubernetes apt repository
       shell: echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
     - name: Update apt package index with the new repository and install kubectl
