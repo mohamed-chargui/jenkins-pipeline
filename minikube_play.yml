@@ -15,7 +15,7 @@
         - curl
 
     - name: Install kubectl
-      shell: sh kubectl.sh
+      include_tasks: tasks/kubectl.yml
 
     - name: Install Minikube
       shell: |
